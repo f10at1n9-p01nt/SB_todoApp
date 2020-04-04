@@ -7,6 +7,7 @@ function addItem(selection, text) {
 	//Creates new todo item with 'text' as the item.
 	const newLi = document.createElement('li');
 	const newCheckbox = document.createElement('input');
+	const deleteItem = document.createElement('button');
 	newCheckbox.type = 'checkbox';
 	newCheckbox.value = 1;
 
@@ -14,8 +15,11 @@ function addItem(selection, text) {
 	todoList.push(text);
 	newLi.classList.add('completed');
 	newLi.classList.toggle('completed');
+	deleteItem.classList.add('delete');
+	deleteItem.innerText = 'Remove';
 	ul.append(newLi);
 	newLi.prepend(newCheckbox);
+	newLi.append(deleteItem);
 	selection.value = '';
 }
 
@@ -48,7 +52,12 @@ ul.addEventListener('change', function(event) {
 		theLi = event.path[1];
 		theLi.classList.toggle('completed');
 	}
-	console.log(event.path[1]);
+});
+
+ul.addEventListener('click', function(event) {
+	if (event.target.tagName === 'BUTTON') {
+		event.target.parentElement.remove();
+	}
 });
 
 button.addEventListener('click', function(event) {
